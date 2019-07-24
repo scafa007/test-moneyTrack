@@ -1,14 +1,9 @@
-<form>
-
-  <div class="form-group">
+ <div class="form-group">
     <label for="articlesId">Article</label>
     <div class="col-sm-10">
       <select [(ngModel)]="selectArticle" class="form-control" id="articlesId" name="selectArticle">
-
-        <ng-container *ngFor="let article of articles" >
-          <option  [ngValue]="article"  > balance.balance">{{article.label}}</option>
-        </ng-container>
-
+        <option [ngValue]="{}">Selectionnez un article</option>
+        <option *ngFor="let article of articles" [ngValue]="article" >{{article.label}}</option>
       </select>
     </div>
 
@@ -16,8 +11,7 @@
   <div class="form-group">
     <label for="staticPrice">Montant</label>
     <div class="col-sm-10">
-      <span id="staticPrice">{{selectArticle.price}}</span>
+      <input type="text" readonly class="form-control-plaintext" id="staticPrice" value="{{selectArticle.price}}" name="selectArticledPrice">
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Achetez</button>
-</form>
+  <button type="submit" class="btn btn-primary" [disabled]="!(selectArticle?.id)" (click)="acheteArticle()">Achetez</button>

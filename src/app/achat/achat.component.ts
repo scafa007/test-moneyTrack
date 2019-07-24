@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Article} from "../type/Article";
-import {ArticleService} from "../service/article.service";
-import {Balance} from "../type/balance";
+import {ArticleService} from '../service/article.service';
+
 import {BalanceService} from "../service/balance.service";
+import {zip} from "rxjs";
+import {map} from "rxjs/operators";
+import {PaiementService} from "../service/paiement.service";
+
 
 @Component({
   selector: 'app-achat',
@@ -12,23 +16,32 @@ import {BalanceService} from "../service/balance.service";
 export class AchatComponent implements OnInit {
 
   private articles: Article[] =[];
-  private balance: Balance;
+
   private selectArticle : Article ={};
 
-  constructor(private articleService: ArticleService, balanceService: BalanceService) {
+  constructor(private articleService: ArticleService, private balanceService: BalanceService, private paiementService: PaiementService) {
 
   }
 
   ngOnInit() {
-    this.articleService.getArticles()
-      .subscribe( articles => {
-        this.articles = articles;
-        this.selectArticle = this.articles[0];
-      });
+
+    zip( this.articleService.getArticles(),this.balanceService.getBalance())
+      .pipe(
+        map(([articles,balance]) => {
+          return {'articles': articles,'balance':balance};
+        })
+      )
+      .subscribe( value =>
+    {
+      this.articles = value.articles.filter(article => article.price < value.balance.balance);
+    })
   }
 
-  setSelected(article: Article){
-    this.selectArticle = article;
+  acheteArticle(){
+    if(this.selectArticle.id){
+
+    }
+
   }
 
 }
