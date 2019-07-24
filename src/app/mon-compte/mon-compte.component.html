@@ -1,5 +1,5 @@
-<h1>Mon Compte</h1>
+<h2>Mon Compte</h2>
 
-<h2> Ma balance au {{today | date:'dd/MM/yyyy'}}</h2>
+<div><span>Ma balance au {{today | date:'dd/MM/yyyy'}}</span></div>
 
-<h3>{{balance.balance | currency:'EUR'}}</h3>
+<div><span> {{balance?.balance | currency:'EUR':'symbol':'3.2-2':'fr'}} </span></div>
