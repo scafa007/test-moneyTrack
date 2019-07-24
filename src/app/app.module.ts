@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { HttpClientModule }    from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,10 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MesPaiementsComponent } from './mes-paiements/mes-paiements.component';
 import { AchatComponent } from './achat/achat.component';
 import {FormsModule} from "@angular/forms";
+import {registerLocaleData} from "@angular/common";
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -26,7 +30,10 @@ import {FormsModule} from "@angular/forms";
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: LOCALE_ID,
+    useValue: 'fr-FR'
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
