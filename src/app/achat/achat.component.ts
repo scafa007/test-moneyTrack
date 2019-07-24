@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Article} from "../type/Article";
+import {Article} from '../type/Article';
 import {ArticleService} from '../service/article.service';
 
-import {BalanceService} from "../service/balance.service";
-import {zip} from "rxjs";
-import {map} from "rxjs/operators";
-import {PaiementService} from "../service/paiement.service";
+import {BalanceService} from '../service/balance.service';
+import {zip} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PaiementService} from '../service/paiement.service';
 
 
 @Component({
@@ -15,9 +15,9 @@ import {PaiementService} from "../service/paiement.service";
 })
 export class AchatComponent implements OnInit {
 
-  private articles: Article[] =[];
+  private articles: Article[] = [];
 
-  private selectArticle : Article ={};
+  private selectArticle: Article = {};
 
   constructor(private articleService: ArticleService, private balanceService: BalanceService, private paiementService: PaiementService) {
 
@@ -25,20 +25,19 @@ export class AchatComponent implements OnInit {
 
   ngOnInit() {
 
-    zip( this.articleService.getArticles(),this.balanceService.getBalance())
+    zip( this.articleService.getArticles(), this.balanceService.getBalance())
       .pipe(
-        map(([articles,balance]) => {
-          return {'articles': articles,'balance':balance};
+        map(([articles, balance]) => {
+          return {articles, balance};
         })
       )
-      .subscribe( value =>
-    {
+      .subscribe( value => {
       this.articles = value.articles.filter(article => article.price < value.balance.balance);
-    })
+    });
   }
 
-  acheteArticle(){
-    if(this.selectArticle.id){
+  acheteArticle() {
+    if (this.selectArticle.id) {
 
     }
 

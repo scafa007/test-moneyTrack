@@ -1,4 +1,4 @@
-export class PaiementView{
+export class PaiementView {
 
   dateAchat?: Date;
   article_id?: number;

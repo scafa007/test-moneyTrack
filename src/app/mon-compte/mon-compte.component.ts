@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Paiement} from "../type/paiement";
-import {Balance} from "../type/balance";
-import {BalanceService} from "../service/balance.service";
+import {Paiement} from '../type/paiement';
+import {Balance} from '../type/balance';
+import {BalanceService} from '../service/balance.service';
 
 @Component({
   selector: 'app-mon-compte',

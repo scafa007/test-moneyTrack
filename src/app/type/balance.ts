@@ -1,3 +1,3 @@
 export class Balance {
-  balance? : number;
+  balance?: number;
 }

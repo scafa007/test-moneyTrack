@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Balance} from "../type/balance";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Balance} from '../type/balance';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class BalanceService {
 
   constructor(private http: HttpClient) { }
 
-  getBalance(): Observable<Balance>{
+  getBalance(): Observable<Balance> {
     return this.http.get<Balance>(this.balanceUrl);
   }
 }
