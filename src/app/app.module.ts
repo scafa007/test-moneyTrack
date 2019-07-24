@@ -12,6 +12,7 @@ import { AchatComponent } from './achat/achat.component';
 import {FormsModule} from '@angular/forms';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { EtatPipe } from './etat.pipe';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -20,7 +21,8 @@ registerLocaleData(localeFr, 'fr');
     AppComponent,
     MonCompteComponent,
     MesPaiementsComponent,
-    AchatComponent
+    AchatComponent,
+    EtatPipe
   ],
   imports: [
     BrowserModule,

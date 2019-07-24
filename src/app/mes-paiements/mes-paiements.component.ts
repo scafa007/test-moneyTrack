@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {Paiement} from '../type/paiement';
+import {Component, OnInit} from '@angular/core';
 import {PaiementService} from '../service/paiement.service';
 import {ArticleService} from '../service/article.service';
-import {Observable, of, Subject, zip} from 'rxjs';
+import {Observable, zip} from 'rxjs';
 import {PaiementView} from '../type/PaiementView';
-import {debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-mes-paiements',
@@ -14,8 +13,8 @@ import {debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators
 export class MesPaiementsComponent implements OnInit {
 
   private paiements: PaiementView[] = [];
-  private searchTerms = new Subject<string>();
-  private paiementsObservable: Observable<PaiementView[]> = of(this.paiements);
+  private paiementsearch: PaiementView[] = [];
+  private paiementsObservable: Observable<PaiementView[]> ;
 
 
   constructor(
@@ -25,15 +24,7 @@ export class MesPaiementsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.searchTerms.pipe(
-
-      debounceTime(300),
-
-      distinctUntilChanged(),
-
-      switchMap((term: string) => this.paiementsObservable)
-    );
-    zip(this.paiementService.getPaiement(), this.articleService.getArticles())
+    this.paiementsObservable = zip(this.paiementService.getPaiement(), this.articleService.getArticles())
       .pipe(
       map(([paiements, articles]) => {
         const paiementsView: PaiementView[] = [];
@@ -57,10 +48,20 @@ export class MesPaiementsComponent implements OnInit {
         return paiementsView;
 
       })
-    ).subscribe(value => {
+    );
+
+    this.paiementsObservable.subscribe(value => {
       this.paiements = value;
+      this.paiementsearch = this.paiements;
+
     });
 
+  }
+  search(term: string): void {
+    if (!term.trim()) {
+      this.paiementsearch = this.paiements;
+    }
+    this.paiementsearch = this.paiements.filter(paiement => (paiement.montant + '').includes(term) || paiement.libelle.includes(term) );
   }
 
 }

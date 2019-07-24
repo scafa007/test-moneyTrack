@@ -13,13 +13,15 @@
 
   </thead>
   <tbody>
-  <tr *ngFor="let paiement of paiements" scope="row">
+  <tr *ngFor="let paiement of paiementsearch" scope="row">
   <td>{{paiement.dateAchat | date:'dd/MM/yyyy' }}</td>
   <td>{{paiement.article_id}}</td>
   <td>{{paiement.montant | currency:'EUR'}}</td>
   <td>{{paiement.libelle}}</td>
-  <td>{{paiement.etat}}</td>
-  <td><button *ngIf="paiement.etat === 'paid'" type="button" class="btn btn-sm btn-light">Annuler ? </button></td>
+  <td>{{paiement.etat | etat}}</td>
+  <td><button *ngIf="paiement.etat === 'paid'" type="button" class="btn btn-sm btn-light" (click)="paiement.etat = 'Annulé'">Annuler ? </button></td>
   </tr>
   </tbody>
+
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 </table>
