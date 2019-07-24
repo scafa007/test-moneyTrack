@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Article} from '../type/Article';
 import {ArticleService} from '../service/article.service';
 
@@ -38,7 +38,9 @@ export class AchatComponent implements OnInit {
 
   acheteArticle() {
     if (this.selectArticle.id) {
-
+      this.paiementService.postPaiement(this.selectArticle).subscribe(value => {
+        console.log("c est achete", value);
+      })
     }
 
   }
